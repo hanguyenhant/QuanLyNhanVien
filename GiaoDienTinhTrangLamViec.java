@@ -4,7 +4,9 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -43,6 +45,14 @@ public class GiaoDienTinhTrangLamViec extends JPanel implements ActionListener{
         bt.setBounds(300,80,100,30);        
         bt.addActionListener(this);
         super.add(bt);
+        
+        ta = new JTextArea(350,350);       
+        ta.setFont(new Font("Consolas", Font.BOLD, 14));
+        
+        sp = new JScrollPane(ta, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        sp.setBounds(100, 120, 400, 350);
+        sp.setVisible(false);
+        super.add(sp);
 
     }
 
@@ -51,14 +61,17 @@ public class GiaoDienTinhTrangLamViec extends JPanel implements ActionListener{
         if (e.getSource() == bt){           
             String MSNV = tf.getText();      
             
-            ta = new JTextArea(350,350);       
-            ta.setFont(new Font("Consolas", Font.BOLD, 14));
-                       
-            ta.setText(QuanLy.timKiemTheoMSNV(MSNV)+QuanLy.tinhTrangLamViec(MSNV)); 
-            
-            sp = new JScrollPane(ta, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-            sp.setBounds(100, 120, 400, 350);
-            super.add(sp);
+            JFrame frame = new JFrame("Thong bao");   
+            if (!"NV".equals(MSNV.substring(0, 2))){
+                JOptionPane.showMessageDialog(frame, "Vui lòng nhập mã số theo dạng: NV+ số!");
+            } else{    
+                if (QuanLy.timKiemTheoMSNV(MSNV).equals("Khong tim thay!"))
+                    ta.setText("Khong tim thay!");
+                else
+                    ta.setText(QuanLy.timKiemTheoMSNV(MSNV)+QuanLy.tinhTrangLamViec(MSNV));            
+                sp.setVisible(true);
+                super.validate();
+            }
         }
         
     }

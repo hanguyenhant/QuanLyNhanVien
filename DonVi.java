@@ -13,6 +13,10 @@ public class DonVi {
         LinkedList<NhanVien> nv = new LinkedList();
         this.list = nv;                	
     }
+    
+    public int getSoNV(){
+	return soNV;
+    }
 
     public String getTenDonVi(){
 	return tenDonVi;
@@ -83,7 +87,7 @@ public class DonVi {
         for (i=0;i<this.list.size();i++)
             s += this.list.get(i).toString();
         
-        s += "So nhan vien cua don vi: " + this.soNV;
+        //s += "So nhan vien cua don vi: " + this.soNV;
         
         return s;
     }

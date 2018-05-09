@@ -26,13 +26,13 @@ public class TinhTrangDonVi extends JPanel {
         ta = new JTextArea(350,350);       
         ta.setFont(new Font("Consolas", Font.BOLD, 14));
                        
-        if (donVi<=QuanLy.soDV)
-            ta.setText(QuanLy.thongTinDonVi(QuanLy.list.get(donVi-1))); 
-        else ta.setText("Khong ton tai don vi!");
+        ta.setText(QuanLy.thongTinDonVi(QuanLy.list.get(donVi-1))); 
             
         sp = new JScrollPane(ta, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        sp.setBounds(100, 120, 400, 350);
+        sp.setBounds(100, 100, 400, 350);
         super.add(sp);
+        
+        super.validate();
 
     }
 

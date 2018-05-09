@@ -1,4 +1,3 @@
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -6,6 +5,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -75,16 +75,22 @@ public class GiaoDienTinhTrangDonVi extends JPanel implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == bt){
-            JFrame f = new JFrame("Tinh trang don vi");
-            f.setSize(600, 500); 
-            f.setLocationRelativeTo(null);
-            f.setVisible(true);
-            
+        if (e.getSource() == bt){          
             int donVi = Integer.parseInt(tf.getText());
             
-            JPanel p = new TinhTrangDonVi(donVi);
-            f.add(p);
+            if (donVi<=QuanLy.soDV){
+                JFrame f = new JFrame("Tinh trang don vi");
+                f.setSize(600, 500); 
+                f.setLocationRelativeTo(null);
+                f.setVisible(true);
+                JPanel p = new TinhTrangDonVi(donVi);
+                f.add(p);
+            }
+            else {
+                JFrame frame = new JFrame("Thong bao");              
+                JOptionPane.showMessageDialog(frame, "Khong ton tai don vi!");
+            }
+               
         }
     }
     

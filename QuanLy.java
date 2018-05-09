@@ -1,8 +1,6 @@
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.InputMismatchException;
 import java.util.LinkedList;
-import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -10,7 +8,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.ParseException;
 
 public class QuanLy {
     static LinkedList<DonVi> list = new LinkedList();
@@ -161,49 +158,60 @@ public class QuanLy {
         
         return s;
     } 
-
-    public static String thongTinDonVi(String tenDonVi){
-    	//trả về xâu chứa thông tin của 1 đơn vị, dùng timKiemDonVi để tìm kiếm, dùng DonVi.toString()
-    	//nếu không tồn tại đơn vị, trả về "Không tồn tại đơn vị"
-        String s = "";
-        DonVi dv = null;           
-        int i;
-        
-        for (i=0;i<list.size();i++){
-            //Lấy ra đơn vị có tên đơn vị này
-            dv = QuanLy.timKiemDonVi(tenDonVi);
-            if (dv != null) break;            
-        }
-        //trả về xâu thông tin
-        s = dv.toString();
-        
-        if (s.equals(""))
-            s = "Khong tim thay!";
-                           
-        return s;
-    }
-    
+   
     public static String thongTinDonVi(DonVi donVi){
     	//trả về xâu chứa thông tin của 1 đơn vị, dùng DonVi.toString()
     	//nếu không tồn tại đơn vị, trả về "Không tồn tại đơn vị"
         String s = "";
         DonVi dv = null;           
         int i;
+        int soNV = 0;
         
-        for (i=0;i<list.size();i++){
+        String tenDonVi = donVi.getTenDonVi();
+        
+        if (tenDonVi.equals("BK Corporation")){
+            for (i=0;i<list.size();i++){
+                s += list.get(i).toString();
+                soNV += list.get(i).getSoNV();
+            }
+            s += "So nhan vien cua don vi la: " + soNV;
+            
+        }  
+        
+        if (!"BK Corporation".equals(tenDonVi)){
+            if (tenDonVi.substring(0,2).equals("BK")){
+                
+            LinkedList<DonVi> listdv = new LinkedList();
+            for (i=0;i<list.size();i++){
+                String s1 = list.get(i).getTenDonVi();
+                if (s1.substring(s1.length()-tenDonVi.length(),s1.length()).equals(tenDonVi)){
+                    listdv.add(list.get(i));
+                    soNV += list.get(i).getSoNV();
+                }
+            }
+            
+            for (i=0;i<listdv.size();i++)
+                s += listdv.get(i).toString();
+            s += "So nhan vien cua don vi la: " + soNV;
+            }    
+        }
+        
+        if (tenDonVi.substring(0,5).equals("Phong")){
+            for (i=0;i<list.size();i++){
             //Lấy ra đơn vị có tên đơn vị này
             dv = QuanLy.timKiemDonVi(donVi.getTenDonVi());
             if (dv != null) break;
-
-        }
+            }
                            
-        //trả về xâu thông tin
-        s = dv.toString();
+            //trả về xâu thông tin
+            s = dv.toString();
+            s += "So nhan vien cua don vi la: " + dv.getSoNV();
         
-        if (s.equals(""))
-            s = "Khong tim thay!";
-        
-        return s;
+            if (s.equals(""))
+                s = "Khong tim thay!";
+ 
+        }     
+        return s;     
     }
     
     public static void themNhanVien(NhanVien nv){  
@@ -268,7 +276,7 @@ public class QuanLy {
         for (i=0;i<list.size();i++){
             
             if (list.get(i).getTenDonVi().equals("BK Corporation"))
-                chuTich = list.get(i).getTruongDonVi();
+                chuTich = list.get(i).getTruongDonVi();                       
                        
             if (list.get(i).getTenDonVi().equals("BK Entertainment")){
                 gdBKEn = list.get(i).getTruongDonVi();

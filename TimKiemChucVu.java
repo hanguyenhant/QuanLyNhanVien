@@ -5,7 +5,9 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -44,22 +46,39 @@ public class TimKiemChucVu extends JPanel implements ActionListener{
         bt.addActionListener(this);
         super.add(bt);
 
+        ta = new JTextArea(350,350);       
+        ta.setFont(new Font("Consolas", Font.BOLD, 14));
+        
+        sp = new JScrollPane(ta, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        sp.setBounds(100, 120, 400, 350);
+        sp.setVisible(false);
+        super.add(sp);   
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == bt){
+            JFrame frame = new JFrame("Thong bao");   
+            if (isNumeric(tf.getText())){
+                JOptionPane.showMessageDialog(frame, "Vui lòng không nhập số. Hãy nhập vào chức vụ!");
+            } else{
+              
+                String s = tf.getText();   
+                ta.setText(QuanLy.timKiemTheoChucVu(s)); 
             
-            String s = tf.getText();      
+                sp.setVisible(true);
             
-            ta = new JTextArea(350,350);       
-            ta.setFont(new Font("Consolas", Font.BOLD, 14));
-            ta.setText(QuanLy.timKiemTheoChucVu(s)); 
-            
-            sp = new JScrollPane(ta, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-            sp.setBounds(100, 120, 400, 350);
-            super.add(sp);
-            
+                super.validate();
+            }
         }
+    }
+    public static boolean isNumeric(String s){
+        try{
+            double a = Double.parseDouble(s);
+        }
+        catch (NumberFormatException ex) {
+            return false;
+        }
+        return true;
     }
 }
