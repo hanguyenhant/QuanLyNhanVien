@@ -10,7 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class QuanLy {
-    static LinkedList<DonVi> list = new LinkedList();
+    static LinkedList<DonVi> list = new LinkedList<DonVi>();
     static int soDV;
     static int soNhanVien = 0;
             
@@ -168,25 +168,26 @@ public class QuanLy {
         int soNV = 0;
         
         String tenDonVi = donVi.getTenDonVi();
-        
+               
         if (tenDonVi.equals("BK Corporation")){
             for (i=0;i<list.size();i++){
                 s += list.get(i).toString();
                 soNV += list.get(i).getSoNV();
             }
-            s += "So nhan vien cua don vi la: " + soNV;
-            
+            s += "So nhan vien cua don vi la: " + soNV;           
         }  
         
         if (!"BK Corporation".equals(tenDonVi)){
             if (tenDonVi.substring(0,2).equals("BK")){
                 
-            LinkedList<DonVi> listdv = new LinkedList();
+            LinkedList<DonVi> listdv = new LinkedList<DonVi>();
             for (i=0;i<list.size();i++){
                 String s1 = list.get(i).getTenDonVi();
-                if (s1.substring(s1.length()-tenDonVi.length(),s1.length()).equals(tenDonVi)){
-                    listdv.add(list.get(i));
-                    soNV += list.get(i).getSoNV();
+                if (s1.length()>=tenDonVi.length()){ 
+                    if (s1.substring(s1.length()-tenDonVi.length(),s1.length()).equals(tenDonVi)){
+                        listdv.add(list.get(i));
+                        soNV += list.get(i).getSoNV();
+                    }
                 }
             }
             
@@ -267,45 +268,31 @@ public class QuanLy {
         //Tên chủ tịch
         //tên các công ty con và giám đốc, phó giám đốc tương ứng
         //tên các phòng ban và trưởng, phó phòng tương ứng
-        //tổng số nhân viên của công ty
+        //tổng số nhân viên của công t        
         
-        int i;
-        String s;
-        String chuTich = null, gdBKEn = null, pgdBKEn = null, gdBKF = null, pgdBKF = null, gdBKT = null, pgdBKT = null;
+        String s = "";
+        String s1;
+        String tenDonVi;
         
-        for (i=0;i<list.size();i++){
+        for (int i=0;i<list.size();i++){
             
-            if (list.get(i).getTenDonVi().equals("BK Corporation"))
-                chuTich = list.get(i).getTruongDonVi();                       
-                       
-            if (list.get(i).getTenDonVi().equals("BK Entertainment")){
-                gdBKEn = list.get(i).getTruongDonVi();
-                pgdBKEn = list.get(i).getPhoDonVi();               
-            }
-                       
-            if (list.get(i).getTenDonVi().equals("BK Food")){
-                gdBKF = list.get(i).getTruongDonVi();
-                pgdBKF = list.get(i).getPhoDonVi();
-            }
-                       
-            if (list.get(i).getTenDonVi().equals("BK Tech")){
-                gdBKT = list.get(i).getTruongDonVi();
-                pgdBKT = list.get(i).getPhoDonVi();
-            }                                     
+            tenDonVi = list.get(i).getTenDonVi();
+            
+            if (tenDonVi.equals("BK Corporation"))
+                s += "Chu tich: " + list.get(i).getTruongDonVi() +"\n\n";
+            
+            if (!"BK Corporation".equals(tenDonVi))
+                if (tenDonVi.substring(0,2).equals("BK")){
+                    s += "# Cong ty " + tenDonVi + "\n";
+                    s += "+ Giam doc: " + list.get(i).getTruongDonVi() +"\n";
+                    s += "+ Pho giam doc: \n" + list.get(i).getPhoDonVi() +"\n";
+                }                     
         }
-        s = "Chủ tịch: " + chuTich + "\n";
-        s += "1. Công ty BK Entertainment: " + "\n";
-        s += "Giám đốc: " + gdBKEn + "\n";
-        s += "Phó giám đốc: \n" + pgdBKEn + "\n";
-        s += "2. Công ty BK Food: " + "\n";
-        s += "Giám đốc: " + gdBKF + "\n";
-        s += "Phó giám đốc: \n" + pgdBKF + "\n";
-        s += "3. Công ty BK Tech: " + "\n";
-        s += "Giám đốc: " + gdBKT + "\n";
-        s += "Phó giám đốc: \n" + pgdBKT + "\n";
-        s += "Tổng số nhân viên: " + soNhanVien ; 
+        
+        s += "Tong so nhan vien cua cong ty: " + soNhanVien;
         
         return s;
+     
     }
     
     public static void init() throws FileNotFoundException, java.text.ParseException
@@ -358,7 +345,7 @@ public class QuanLy {
                 SDT = lines.get(9);
                 ngayBatDauLV = new java.sql.Date(new SimpleDateFormat("dd/MM/yyyy").parse(lines.get(10)).getTime());
                 
-                ngayLamViec = new LinkedList();
+                ngayLamViec = new LinkedList<NgayLamViec>();
                 for (int i = 11; i < lines.size(); i++){
                     NgayLamViec ngaylv = new NgayLamViec(lines.get(i));
                     ngayLamViec.add(ngaylv);                                       
