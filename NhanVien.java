@@ -163,13 +163,7 @@ public class NhanVien {
     }
     
     public boolean edit(NhanVien nv, NhanVien nvsua, LinkedList<DonVi> list) throws ParseException
-    {
-    	//properties là biến cờ các thuộc tính cần sửa:_HOTEN, _TENDONVI, _CHUCVU, _NGAYSINH, _QUEQUAN, _DIACHI, _EMAIL, _SDT
-    	// (properties & _HOTEN) != 0 ----> cần sửa họ tên
-    	// (properties & _TENDONVI) != 0 ----> cần sửa tên đơn vị 
-    	//.......
-  
-    	//Dùng Scanner để nhập từ bàn phím dữ liệu thay thế
+    {  
     	//Dùng phương thức khởi tạo nhiều tham số, tạo đối tượng nhân viên thay thế
     	//Xóa nhân viên này khỏi list của DonVi
     	//Sửa trong file

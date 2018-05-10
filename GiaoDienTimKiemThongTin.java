@@ -20,7 +20,7 @@ public class GiaoDienTimKiemThongTin extends JPanel implements ActionListener {
             super.setVisible(true);
         
             lb = new JLabel("Tìm kiếm thông tin nhân viên");       
-            lb.setBounds(170,20,400,30);   
+            lb.setBounds(180,20,400,30);   
             lb.setFont(new Font("Consolas", Font.BOLD, 14));
             lb.setForeground(Color.BLACK);
             super.add(lb);

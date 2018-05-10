@@ -30,7 +30,7 @@ public class GiaoDienThongTinCoBan extends JPanel{
         ta.setText(QuanLy.thongTinCoBan());      
         
         sp = new JScrollPane(ta, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        sp.setBounds(130, 100, 350, 350);
+        sp.setBounds(130, 80, 350, 370);
         super.add(sp);
    
     }

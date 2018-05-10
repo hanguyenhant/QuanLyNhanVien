@@ -271,7 +271,6 @@ public class QuanLy {
         //tổng số nhân viên của công t        
         
         String s = "";
-        String s1;
         String tenDonVi;
         
         for (int i=0;i<list.size();i++){
@@ -285,8 +284,19 @@ public class QuanLy {
                 if (tenDonVi.substring(0,2).equals("BK")){
                     s += "# Cong ty " + tenDonVi + "\n";
                     s += "+ Giam doc: " + list.get(i).getTruongDonVi() +"\n";
-                    s += "+ Pho giam doc: \n" + list.get(i).getPhoDonVi() +"\n";
-                }                     
+                    s += "+ Pho giam doc: \n" + list.get(i).getPhoDonVi();
+                    for (int j=0;j<list.size();j++){
+                        String s1 = list.get(j).getTenDonVi();
+                        if (s1.length()>tenDonVi.length()){ 
+                            if (s1.substring(s1.length()-tenDonVi.length(),s1.length()).equals(tenDonVi)){
+                                s += "*" + list.get(j).getTenDonVi().substring(0,s1.length()-tenDonVi.length()-3) + "\n";
+                                s += "Truong phong: " + list.get(j).getTruongDonVi() + "\n";
+                                s += "Pho phong: " + list.get(j).getPhoDonVi();
+                            }
+                        }                        
+                    }
+                    s += "\n";
+                }                                
         }
         
         s += "Tong so nhan vien cua cong ty: " + soNhanVien;
