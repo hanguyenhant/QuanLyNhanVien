@@ -1,6 +1,5 @@
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,8 +7,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -173,7 +170,8 @@ public class GiaoDienThemNhanVien extends JPanel implements ActionListener{
                     JOptionPane.showMessageDialog(frame, "Thêm không thành công!");
                 
             } catch (ParseException ex) {
-                Logger.getLogger(GiaoDienThemNhanVien.class.getName()).log(Level.SEVERE, null, ex);
+                JFrame frame = new JFrame("Thong bao");             
+                JOptionPane.showMessageDialog(frame, "Vui lòng không đúng định dạng ngày dd/MM/yyyy!");
             }
         }
     }

@@ -181,7 +181,8 @@ public class GiaoDienCapNhatThongTin extends JPanel implements ActionListener {
                     }                              
                 
             } catch (ParseException ex) {
-                Logger.getLogger(GiaoDienThemNhanVien.class.getName()).log(Level.SEVERE, null, ex);
+                JFrame frame = new JFrame("Thong bao");             
+                JOptionPane.showMessageDialog(frame, "Vui lòng không đúng định dạng ngày dd/MM/yyyy!");
             }
         }
         
